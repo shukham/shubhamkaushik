@@ -1,9 +1,9 @@
 ---
 layout: page
 title: Mind the Buffer
-description: Dissecting the LSM-Buffer Design Space — Under Review
-importance: 2
-category: Ongoing
+description: Dissecting the LSM-Buffer Design Space — Accepted at VLDB 2027
+importance: 1
+category: Published
 related_publications: chen2026lsmbufferdesign, kaushik2024lsmbuffer
 ---
 
@@ -72,5 +72,5 @@ From 1,200+ experiments, we distill 10 concrete guidelines:
 ---
 
 #### Resources
-- 📄 [View the Paper](/assets/pdf/LSMBufferAnalysis-2.pdf)
+- 📄 [View the Paper](/assets/pdf/MindTheBuffer.pdf)
 - 🐙 [GitHub Repository](https://github.com/SSD-Brandeis/LSMMemoryProfiling)
