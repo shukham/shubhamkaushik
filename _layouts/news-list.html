@@ -1,12 +1,12 @@
 ---
 layout: default
 ---
-<!-- news-list.html -->
-<div class="post">
-  <header class="post-header">
-    <h1 class="post-title">{{ page.title }}</h1>
+<article class="page">
+  <header class="page-header">
+    <h1 class="page-title">{{ page.title | escape_once }}</h1>
+    {%- if page.description %}
+    <p class="page-lead">{{ page.description | escape_once }}</p>
+    {%- endif %}
   </header>
-  <article>
-    {% include news.html %}
-  </article>
-</div>
+  {% include news.html %}
+</article>

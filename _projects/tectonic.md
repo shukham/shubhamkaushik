@@ -1,10 +1,11 @@
 ---
 layout: page
 title: Tectonic
-description: Bridging Synthetic and Real-World Workloads for Key-Value Benchmarking
+description: A Rust workload generator for shifting, composite-key, and partially sorted workloads, with 2× the throughput of YCSB and up to 84% less memory. TPCTC 2025.
 img: assets/img/tectonic.png
 importance: 1
 category: Published
+year: 2025
 related_publications: ott2025tectonic
 ---
 

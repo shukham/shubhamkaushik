@@ -1,9 +1,11 @@
 ---
 layout: page
 title: Mind the Buffer
-description: Dissecting the LSM-Buffer Design Space — Accepted at VLDB 2027
+description: "Dissecting the LSM-buffer design space: nine buffer implementations, 1,200+ experiments, and 10 tuning guidelines. Accepted at VLDB 2027."
+img: assets/img/switching_buffer_card.png
 importance: 1
-category: Published
+category: Accepted
+year: 2027
 related_publications: chen2026lsmbufferdesign, kaushik2024lsmbuffer
 ---
 
@@ -45,14 +47,14 @@ We evaluate four existing implementations from commercial LSM-engines and introd
 
 No static buffer choice handles workload shifts well. We design an **Adaptive buffer** that monitors operation composition over a sliding window and switches to the best-fit implementation at each flush boundary. Across a seven-phase workload spanning insert-heavy, read-heavy, update-intensive, and scan-heavy phases, the Adaptive buffer matches the best specialist in each phase — delivering 1.14 MOpS in the write phase, switching to Hash-LL for read-heavy phases, and switching back to `V-Qscan` when ingestion resumes.
 
-<center>
+<div class="row justify-content-sm-center">
 <div class="col-sm-8 mt-3 mt-md-0">
   {% include figure.html path="assets/img/switching_buffer_legend.png" class="img-fluid" %}
 </div>
 <div class="col-sm-8 mt-1 mt-md-0">
   {% include figure.html path="assets/img/switching_buffer.png" title="Adaptive buffer throughput across seven workload phases" class="img-fluid rounded z-depth-1" %}
 </div>
-</center>
+</div>
 
 ## Practitioner Handbook
 

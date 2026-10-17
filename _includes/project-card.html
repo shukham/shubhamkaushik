@@ -1,0 +1,18 @@
+{%- assign project = include.project -%}
+<a class="card" href="{{ project.url | relative_url }}">
+  <div class="card-media{% unless project.img %} card-media-empty{% endunless %}">
+    {%- if project.img %}
+    <img src="{{ project.img | relative_url }}" alt="" loading="lazy" decoding="async">
+    {%- else %}
+    {% include icon.html name="layers" %}
+    {%- endif %}
+  </div>
+  <div class="card-body">
+    {%- if project.category %}
+    <span class="eyebrow">{{ project.category }}</span>
+    {%- endif %}
+    <h3 class="card-title">{{ project.title | escape_once }}</h3>
+    <p class="card-text">{{ project.description | escape_once }}</p>
+    <span class="card-more">Read more {% include icon.html name="arrow-right" %}</span>
+  </div>
+</a>

@@ -1,10 +1,11 @@
 ---
 layout: page
 title: LSM Memory Buffer
-description: Anatomy of LSM Memory Buffer Insights & Implications
+description: How the choice and tuning of the in-memory buffer can swing LSM-engine performance by orders of magnitude. DBTest 2024.
 img: assets/img/motivation-a.png
 importance: 1
 category: Published
+year: 2024
 related_publications: kaushik2024lsmbuffer
 ---
 

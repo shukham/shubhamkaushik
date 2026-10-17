@@ -1,0 +1,166 @@
+// Publication lists rendered by jekyll-scholar (see _layouts/bib.html).
+@use "tokens" as *;
+
+ol.bibliography {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  > li + li {
+    border-top: 1px solid var(--color-border);
+  }
+}
+
+// Publications page: entries on the left, the year of each group on the right.
+// jekyll-scholar emits each group as an <h2> followed by an <ol>; dense grid
+// placement pairs them on one row.
+.pub-groups {
+  h2.bibliography {
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--color-border-strong);
+    color: var(--color-text-faint);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  ol.bibliography {
+    margin-bottom: 1.5rem;
+  }
+
+  @media (min-width: $bp-sm) {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-auto-flow: dense;
+
+    h2.bibliography {
+      grid-column: 2;
+      padding-left: 2rem;
+    }
+
+    ol.bibliography {
+      grid-column: 1;
+      border-top: 1px solid var(--color-border-strong);
+    }
+  }
+}
+
+// minmax(0, 1fr) lets wide content (BibTeX) scroll instead of widening the page.
+.pub {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: 1rem;
+  padding-block: 1.1rem;
+
+  @media (min-width: $bp-sm) {
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+// First page of the paper with the venue as a tag on top.
+.pub-thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 360 / 466;
+  border: 1px solid var(--color-border);
+  background: #ffffff;
+  transition: border-color 0.15s ease;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  // Venue tag, nudged just past the right edge of the page.
+  .badge {
+    position: absolute;
+    top: 85%;
+    right: -2%;
+    transform: translateY(-50%);
+    background: var(--color-accent);
+    color: var(--color-accent-contrast);
+    font-weight: 700;
+  }
+
+  &:hover {
+    border-color: var(--color-accent);
+  }
+}
+
+.pub-title {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.pub-authors,
+.pub-meta {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.pub-authors {
+  margin-top: 0.3rem;
+}
+
+.pub-me {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.pub-status {
+  margin-right: 0.4rem;
+  text-transform: uppercase;
+  vertical-align: 1px;
+}
+
+.pub-note {
+  display: block;
+  color: var(--color-text-faint);
+  font-size: 0.78rem;
+}
+
+.pub-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.7rem;
+}
+
+.pub-abstract,
+.pub-cite {
+  margin-top: 0.7rem;
+  border-left: 2px solid var(--color-accent);
+  background: var(--color-bg-subtle);
+  color: var(--color-text-muted);
+}
+
+.pub-abstract {
+  padding: 0.875rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+.pub-cite pre {
+  margin: 0;
+  overflow-x: auto;
+  padding: 0.25rem 1rem 0.875rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+// Sits in its own row above the BibTeX so it never covers the text.
+.pub-copy {
+  display: flex;
+  width: fit-content;
+  margin: 0.5rem 0.5rem 0 auto;
+}
+
+// Panels need JavaScript to open; hide their buttons without it.
+html:not(.js) [data-toggle] {
+  display: none;
+}

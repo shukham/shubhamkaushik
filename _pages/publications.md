@@ -6,8 +6,7 @@ description: Building brick by brick
 nav: true
 nav_order: 2
 ---
-<div class="publications">
 
-{% bibliography -f {{ site.scholar.bibliography }} %}
-
+<div class="pub-groups">
+{% bibliography %}
 </div>

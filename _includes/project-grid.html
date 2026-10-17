@@ -1,0 +1,31 @@
+{%- comment -%}
+  Project cards, newest first (by `year`, then `importance`).
+  Parameters: categories (optional, defaults to all projects), limit (optional).
+{%- endcomment -%}
+{%- if include.categories -%}
+  {%- assign pool = "" | split: "" -%}
+  {%- for category in include.categories -%}
+    {%- assign matches = site.projects | where: "category", category -%}
+    {%- assign pool = pool | concat: matches -%}
+  {%- endfor -%}
+{%- else -%}
+  {%- assign pool = site.projects -%}
+{%- endif -%}
+{%- assign years = pool | map: "year" | compact | uniq | sort | reverse -%}
+{%- assign undated = pool | where_exp: "project", "project.year == nil" -%}
+{%- assign shown = 0 -%}
+<div class="card-grid">
+  {%- for year in years %}
+  {%- assign in_year = pool | where: "year", year | sort: "importance" -%}
+  {%- for project in in_year %}
+  {%- if include.limit and shown >= include.limit %}{% break %}{% endif %}
+  {% include project-card.html project=project %}
+  {%- assign shown = shown | plus: 1 -%}
+  {%- endfor %}
+  {%- endfor %}
+  {%- for project in undated %}
+  {%- if include.limit and shown >= include.limit %}{% break %}{% endif %}
+  {% include project-card.html project=project %}
+  {%- assign shown = shown | plus: 1 -%}
+  {%- endfor %}
+</div>

@@ -8,7 +8,7 @@ venues:
     institution: "Demo Track"
     date: 2026-09-01
     video: ""
-    slides: "/assets/slides/TexBench.pdf"
+    poster: "/assets/pdf/TexBenchPoster.pdf"
   - name: "TPCTC'26"
     institution: "TPC Technology Conference"
     date: 2026-09-01

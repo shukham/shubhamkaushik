@@ -1,10 +1,11 @@
 ---
 layout: page
 title: Flink Scheduler
-description: Heterogeneity-Aware Operator Placement for Stream Processing Systems at the Edge
+description: Heterogeneity-aware operator placement that offloads Apache Flink operators to edge devices to cut WAN traffic.
 img: assets/img/flink-scheduler.png
 importance: 2
 category: Academics
+year: 2023
 related_publications: 
 ---
 
@@ -47,4 +48,4 @@ By integrating **edge-aware task offloading** into Apache Flink, this project ai
 ---
 
 #### For more details, check out:
-- 🐙 [GitHub Repository](https://github.com/shubham-sudo/HeterogeneityAwareOperatorPlacementforStreamProcessingSystemsAtEdge-RaspberryPi)
+- 🐙 [GitHub Repository](https://github.com/shukham/MorphStream)

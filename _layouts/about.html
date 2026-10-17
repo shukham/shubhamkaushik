@@ -1,75 +1,53 @@
 ---
 layout: default
 ---
-
-<!-- about.html -->
-<div class="post">
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-row">
-      <div class="hero-left">
-        <div class="hero-bio">
-          {{ content }}
-        </div>
-        {%- if page.social -%}
-        <div class="hero-social">
-          <div class="contact-icons">
-            {% include social.html %}
-          </div>
-        </div>
-        {%- endif -%}
-      </div>
-      <div class="hero-right">
-        {%- if page.profile and page.profile.image -%}
-        <div class="hero-avatar">
-          {%- assign profile_image_path = page.profile.image | prepend: 'assets/img/' -%}
-          {% include figure.html path=profile_image_path class="img-fluid" alt=page.profile.image cache_bust=true %}
-        </div>
-        {%- endif -%}
-        <h1 class="hero-name">
-          {% if site.title == "blank" -%}{{ site.first_name }} {{ site.middle_name }} {{ site.last_name }}{%- else -%}{{ site.title }}{%- endif %}
-        </h1>
-        <p class="hero-tagline">{{ page.subtitle }}</p>
-      </div>
+<section class="hero">
+  <div class="hero-text">
+    <h1 class="hero-name">{{ site.title }}</h1>
+    {%- if page.subtitle %}
+    <p class="hero-role">{{ page.subtitle }}</p>
+    {%- endif %}
+    <div class="hero-bio prose">
+      {{ content }}
     </div>
-  </section>
-
-  <!-- Latest News -->
-  <section class="homepage-news">
-    <div class="section-header">
-      <h2>News</h2>
-      <a href="{{ '/news/' | relative_url }}" class="section-link">All news &rarr;</a>
+    <div class="hero-actions">
+      <a class="button button-primary" href="{{ '/assets/pdf/cv.pdf' | relative_url }}">
+        {% include icon.html name="download" %} Download CV
+      </a>
+      {%- if page.social %}
+      {% include social.html %}
+      {%- endif %}
     </div>
-    <ul class="news-list">
-      {%- assign sorted_news = site.news | sort: "date" | reverse -%}
-      {%- for item in sorted_news limit: 3 -%}
-      <li class="news-item">
-        <span class="news-date">{{ item.date | date: "%b %Y" }}</span>
-        <span class="news-content">{{ item.content | strip_html }}</span>
-      </li>
-      {%- endfor -%}
-    </ul>
-  </section>
-
-  <!-- Selected Publications -->
-  {% if page.selected_papers -%}
-  <section class="homepage-publications">
-    <div class="section-header">
-      <h2>Publications</h2>
-      <a href="{{ '/publications/' | relative_url }}" class="section-link">All publications &rarr;</a>
-    </div>
-    {%- include selected_papers.html %}
-  </section>
+  </div>
+  {%- if page.profile.image %}
+  <img class="hero-photo{% if page.profile.image_circular %} is-round{% endif %}"
+    src="{{ page.profile.image | prepend: '/assets/img/' | relative_url }}"
+    alt="Portrait of {{ site.author }}" width="320" height="320" fetchpriority="high">
   {%- endif %}
+</section>
 
-  <!-- Featured Projects -->
-  <section class="homepage-projects">
-    <div class="section-header">
-      <h2>Projects</h2>
-      <a href="{{ '/projects/' | relative_url }}" class="section-link">All projects &rarr;</a>
-    </div>
-    {% include homepage_projects.html %}
-  </section>
+<section class="section" aria-labelledby="news-heading">
+  <div class="section-header">
+    <h2 id="news-heading">News</h2>
+    <a class="section-link" href="{{ '/news/' | relative_url }}">All news {% include icon.html name="arrow-right" %}</a>
+  </div>
+  {% include news.html limit=3 %}
+</section>
 
-</div>
+{%- if page.selected_papers %}
+<section class="section" aria-labelledby="publications-heading">
+  <div class="section-header">
+    <h2 id="publications-heading">Selected publications</h2>
+    <a class="section-link" href="{{ '/publications/' | relative_url }}">All publications {% include icon.html name="arrow-right" %}</a>
+  </div>
+  {% bibliography --group_by none --query @*[selected=true]* %}
+</section>
+{%- endif %}
+
+<section class="section" aria-labelledby="projects-heading">
+  <div class="section-header">
+    <h2 id="projects-heading">Projects</h2>
+    <a class="section-link" href="{{ '/projects/' | relative_url }}">All projects {% include icon.html name="arrow-right" %}</a>
+  </div>
+  {% include project-grid.html limit=3 %}
+</section>

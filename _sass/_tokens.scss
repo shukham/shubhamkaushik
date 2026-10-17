@@ -1,0 +1,80 @@
+// Design tokens. Light is the default theme; dark applies when the OS prefers
+// it (unless the visitor picked light) or when explicitly chosen.
+
+$bp-sm: 40rem; // two-column layouts
+$bp-nav: 45rem; // full navigation bar
+
+@mixin dark-theme {
+  color-scheme: dark;
+  --color-bg: #0b0f17;
+  --color-bg-subtle: #131925;
+  --color-surface: #0f141d;
+  --color-text: #e8ebf0;
+  --color-text-muted: #a7b0be;
+  --color-text-faint: #7f8a9c;
+  --color-border: #222a38;
+  --color-border-strong: #334055;
+  --color-accent: #93b4f0;
+  --color-accent-hover: #b8cdf6;
+  --color-accent-soft: rgb(147 180 240 / 0.12);
+  --color-accent-contrast: #0b0f17;
+  --color-media-bg: #f3f5f8;
+  --shadow-md: 0 8px 24px -12px rgb(0 0 0 / 0.7);
+
+  --code-bg: #131925;
+  --code-comment: #8b949e;
+  --code-keyword: #ff7b72;
+  --code-string: #a5d6ff;
+  --code-number: #79c0ff;
+  --code-name: #7ee787;
+  --code-function: #d2a8ff;
+
+  --icon-moon: none;
+  --icon-sun: block;
+}
+
+:root {
+  color-scheme: light;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --color-bg: #ffffff;
+  --color-bg-subtle: #f5f7fa;
+  --color-surface: #ffffff;
+  --color-text: #111827;
+  --color-text-muted: #4b5563;
+  --color-text-faint: #6b7280;
+  --color-border: #e5e7eb;
+  --color-border-strong: #d1d5db;
+  --color-accent: #1e3a8a;
+  --color-accent-hover: #172554;
+  --color-accent-soft: #eef2fb;
+  --color-accent-contrast: #ffffff;
+  --color-media-bg: #ffffff;
+  --shadow-md: 0 8px 24px -12px rgb(17 24 39 / 0.22);
+
+  --code-bg: #f5f7fa;
+  --code-comment: #6e7781;
+  --code-keyword: #cf222e;
+  --code-string: #0a3069;
+  --code-number: #0550ae;
+  --code-name: #116329;
+  --code-function: #8250df;
+
+  --icon-moon: block;
+  --icon-sun: none;
+
+  --container: 60rem;
+  --gutter: clamp(1.25rem, 4vw, 2rem);
+  --header-height: 3.5rem;
+}
+
+:root[data-theme="dark"] {
+  @include dark-theme;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    @include dark-theme;
+  }
+}

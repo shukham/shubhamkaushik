@@ -1,52 +1,203 @@
-/******************************************************************************
- * Content
- ******************************************************************************/
+// Header, navigation, main area and footer.
+@use "tokens" as *;
 
-body {
-  padding-bottom: 70px;
-  color: var(--global-text-color);
-  background-color: var(--global-bg-color);
-  transition: background-color 0.3s ease, color 0.3s ease;
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-bg) 85%, transparent);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  backdrop-filter: saturate(180%) blur(12px);
+}
 
-  h1, h2, h3, h4, h5, h6 {
-    scroll-margin-top: 66px;
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: var(--header-height);
+}
+
+.site-brand {
+  margin-right: auto;
+  color: var(--color-text);
+  font-weight: 600;
+  white-space: nowrap;
+
+  &:hover {
+    color: var(--color-text);
+    text-decoration: none;
   }
 }
 
-body.fixed-top-nav {
-  // Add some padding for the nav-bar.
-  padding-top: 56px;
+.site-nav {
+  overflow-x: auto;
 }
 
-body.sticky-bottom-footer {
-  // Remove padding below footer.
-  padding-bottom: 0;
-}
+.site-nav-list {
+  display: flex;
+  gap: 0.125rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 
-.container {
-  max-width: $max-content-width;
-}
+  a {
+    display: block;
+    padding: 0.3rem 0.65rem;
+    border-bottom: 2px solid transparent;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: color 0.15s ease, border-color 0.15s ease;
 
-// Profile
-.profile {
-  img {
-    width: 100%;
-    border-radius: 12px;
+    &:hover {
+      color: var(--color-text);
+      text-decoration: none;
+    }
+
+    &[aria-current="page"] {
+      border-bottom-color: var(--color-accent);
+      color: var(--color-text);
+    }
   }
 }
 
-// TODO: redefine content layout.
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-accent);
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
 
+  &:hover {
+    background: var(--color-accent-soft);
+    color: var(--color-accent-hover);
+    text-decoration: none;
+  }
 
-/******************************************************************************
- * Publications
- ******************************************************************************/
+  .icon {
+    width: 1rem;
+    height: 1rem;
+  }
+}
 
-// TODO: redefine publications layout.
+// Header controls stay neutral; content icons use the accent.
+.theme-toggle,
+.nav-toggle {
+  color: var(--color-text);
 
+  &:hover {
+    background: var(--color-bg-subtle);
+    color: var(--color-text);
+  }
+}
 
-/*****************************************************************************
-* Projects
-*****************************************************************************/
+.theme-toggle {
+  html:not(.js) & {
+    display: none;
+  }
 
-// TODO: redefine projects layout.
+  .icon-moon {
+    display: var(--icon-moon);
+  }
+
+  .icon-sun {
+    display: var(--icon-sun);
+  }
+}
+
+.nav-toggle {
+  display: none;
+
+  .icon-close,
+  &[aria-expanded="true"] .icon-open {
+    display: none;
+  }
+
+  &[aria-expanded="true"] .icon-close {
+    display: block;
+  }
+}
+
+// Small screens: collapse the navigation behind a menu button (JS only;
+// without JS the links stay inline and scroll horizontally).
+@media (max-width: ($bp-nav - 0.01rem)) {
+  .js {
+    .nav-toggle {
+      display: inline-flex;
+      order: 3;
+    }
+
+    .theme-toggle {
+      order: 2;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      left: 0;
+      display: none;
+      padding: 0.5rem var(--gutter) 1rem;
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-bg);
+      box-shadow: var(--shadow-md);
+
+      &.is-open {
+        display: block;
+      }
+    }
+
+    .site-nav-list {
+      flex-direction: column;
+      gap: 0;
+
+      a {
+        padding: 0.7rem 0.5rem;
+        border-bottom: 0;
+        border-left: 2px solid transparent;
+        font-size: 1rem;
+
+        &[aria-current="page"] {
+          border-left-color: var(--color-accent);
+        }
+      }
+    }
+  }
+}
+
+.site-main {
+  flex: 1;
+  padding-top: clamp(2rem, 5vw, 3rem);
+  padding-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-faint);
+  font-size: 0.8rem;
+}
+
+.site-footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding-block: 1rem;
+}
+
+@media print {
+  .site-header,
+  .site-footer,
+  .skip-link {
+    display: none;
+  }
+}

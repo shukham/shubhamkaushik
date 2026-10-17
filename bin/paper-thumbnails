@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+# Renders the first page of every paper in _bibliography/papers.bib to
+# assets/img/papers/<bibtex-key>.webp, shown next to each publication.
+# Thumbnails are regenerated only when the PDF is newer than the image.
+#
+# Requires pdftoppm (poppler) and cwebp (webp), e.g. `brew install poppler webp`.
+# Usage: bundle exec bin/paper-thumbnails
+
+require "bibtex"
+require "fileutils"
+require "tmpdir"
+
+ROOT = File.expand_path("..", __dir__)
+OUTPUT_DIR = File.join(ROOT, "assets/img/papers")
+WIDTH = 360
+
+FileUtils.mkdir_p(OUTPUT_DIR)
+
+BibTeX.open(File.join(ROOT, "_bibliography/papers.bib")).each do |entry|
+  next unless entry.is_a?(BibTeX::Entry) && entry[:pdf]
+
+  pdf = entry[:pdf].to_s
+  next if pdf.include?("://")
+
+  source = File.join(ROOT, "assets/pdf", pdf)
+  target = File.join(OUTPUT_DIR, "#{entry.key}.webp")
+
+  unless File.exist?(source)
+    warn "skip #{entry.key}: #{source} not found"
+    next
+  end
+  next if File.exist?(target) && File.mtime(target) >= File.mtime(source)
+
+  Dir.mktmpdir do |dir|
+    page = File.join(dir, "page")
+    system("pdftoppm", "-f", "1", "-l", "1", "-singlefile", "-png",
+           "-scale-to-x", WIDTH.to_s, "-scale-to-y", "-1", source, page, exception: true)
+    system("cwebp", "-quiet", "-q", "80", "#{page}.png", "-o", target, exception: true)
+  end
+  puts "#{entry.key} <- #{pdf}"
+end

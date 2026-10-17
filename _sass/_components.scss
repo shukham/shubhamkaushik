@@ -1,0 +1,465 @@
+// Reusable building blocks: hero, buttons, sections, lists and cards.
+@use "tokens" as *;
+
+// Hero (home page)
+
+.hero {
+  display: grid;
+  gap: 1.5rem;
+  align-items: center;
+
+  @media (min-width: $bp-sm) {
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+  }
+}
+
+.hero-name {
+  font-size: clamp(1.75rem, 1.5rem + 1.2vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.hero-role {
+  margin-top: 0.25rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.hero-bio.prose {
+  margin-top: 1.25rem;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-top: 1.5rem;
+}
+
+.hero-photo {
+  order: -1;
+  width: 7.5rem;
+  height: 7.5rem;
+  object-fit: cover;
+  border: 1px solid var(--color-border);
+
+  &.is-round {
+    border-radius: 50%;
+  }
+
+  @media (min-width: $bp-sm) {
+    order: 0;
+    width: 11.5rem;
+    height: 11.5rem;
+  }
+}
+
+// Buttons, chips and badges
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  height: 2.125rem;
+  padding-inline: 0.9rem;
+  border: 1px solid transparent;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  .icon {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+}
+
+.button-primary {
+  background: var(--color-text);
+  color: var(--color-bg);
+
+  &:hover {
+    background: color-mix(in srgb, var(--color-text) 82%, var(--color-bg));
+    color: var(--color-bg);
+  }
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: 1.625rem;
+  padding-inline: 0.55rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+
+  .icon {
+    width: 0.8rem;
+    height: 0.8rem;
+    color: var(--color-accent);
+  }
+
+  &:hover,
+  &[aria-expanded="true"] {
+    border-color: color-mix(in srgb, var(--color-accent) 45%, transparent);
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.45rem;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.125rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  .icon {
+    width: 1.05rem;
+    height: 1.05rem;
+  }
+}
+
+.social-small .icon {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+// Sections
+
+.section {
+  margin-top: clamp(2.5rem, 6vw, 3.5rem);
+}
+
+.page-body > .section:first-child {
+  margin-top: 0;
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+
+  h2 {
+    font-size: 1.0625rem;
+  }
+}
+
+.section-link,
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+
+  .icon {
+    width: 0.8rem;
+    height: 0.8rem;
+    color: var(--color-accent);
+    transition: transform 0.15s ease;
+  }
+
+  &:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+}
+
+.section-link:hover .icon {
+  transform: translateX(2px);
+}
+
+.back-link {
+  margin-bottom: 1.25rem;
+
+  &:hover .icon {
+    transform: translateX(-2px);
+  }
+}
+
+// Page header
+
+.page-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 44rem;
+  margin-bottom: clamp(1.5rem, 4vw, 2.25rem);
+
+  .eyebrow {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.page-title {
+  font-size: clamp(1.625rem, 1.4rem + 1vw, 2rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.page-lead {
+  margin-top: 0.5rem;
+  color: var(--color-text-muted);
+}
+
+// News and post lists
+
+.news-list,
+.post-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.news-item,
+.post-item {
+  display: grid;
+  gap: 0.125rem;
+  padding-block: 0.7rem;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.9375rem;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  @media (min-width: $bp-sm) {
+    grid-template-columns: 5.5rem 1fr;
+    gap: 1.25rem;
+  }
+
+  time {
+    padding-top: 0.1rem;
+    color: var(--color-text-faint);
+    font-size: 0.8rem;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.post-item-title {
+  font-size: 1rem;
+
+  a {
+    color: var(--color-text);
+  }
+
+  + p {
+    margin-top: 0.25rem;
+    color: var(--color-text-muted);
+  }
+}
+
+// Project cards
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  gap: 0.875rem;
+  margin-top: 1rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-md);
+    color: inherit;
+    text-decoration: none;
+
+    .card-more .icon {
+      transform: translateX(3px);
+    }
+  }
+}
+
+.card-media {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-media-bg);
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem;
+    object-fit: contain;
+  }
+}
+
+.card-media-empty {
+  background:
+    radial-gradient(circle at 30% 20%, var(--color-accent-soft), transparent 65%),
+    var(--color-bg-subtle);
+
+  .icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    color: var(--color-accent);
+    opacity: 0.6;
+  }
+}
+
+.card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem 0.875rem 0.875rem;
+}
+
+.card-title {
+  font-size: 0.9375rem;
+}
+
+.card-text {
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.card-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: auto;
+  padding-top: 0.3rem;
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  .icon {
+    width: 0.8rem;
+    height: 0.8rem;
+    transition: transform 0.15s ease;
+  }
+}
+
+// Talks: laid out like the publication list, one rule between talks.
+
+.talk-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  > li {
+    padding-block: 1.1rem;
+  }
+
+  > li:first-child {
+    padding-top: 0;
+  }
+
+  > li + li {
+    border-top: 1px solid var(--color-border);
+  }
+}
+
+.talk-title {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.talk-duration {
+  color: var(--color-text-faint);
+  font-size: 0.8rem;
+}
+
+.talk-venues {
+  margin: 0.4rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.talk-venue {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  min-height: 1.875rem;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.talk-venue-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.5rem;
+
+  // Middle dot between venue and institution.
+  > span + span::before {
+    content: "·";
+    margin-right: 0.5rem;
+    color: var(--color-text-faint);
+  }
+}
+
+.talk-venue-name {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+// Links, then the date in a fixed-width column so dates line up.
+.talk-venue-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+
+  time {
+    min-width: 4.5rem;
+    color: var(--color-text-faint);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+}
