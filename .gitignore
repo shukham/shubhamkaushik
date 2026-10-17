@@ -17,6 +17,6 @@ vendor
 **/*old*.pdf
 **/launch.json
 **/settings.json
-**/CoverLetter*
+**/*CoverLetter*
 **/~$*
 *.code-workspace
