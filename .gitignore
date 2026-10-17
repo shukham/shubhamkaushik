@@ -15,5 +15,12 @@ vendor
 **.fdb_latexmk
 **.out
 **.synctex.gz
+**.tex
+**/*old*.pdf
+**/launch.json
+**/settings.json
+**/CoverLetter*
+**/~$*
+*.code-workspace
 
 myenv/**
