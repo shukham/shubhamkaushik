@@ -11,9 +11,11 @@
   backdrop-filter: saturate(180%) blur(12px);
 }
 
+// Right-aligned so the menu stays put on the home page, where the name is omitted.
 .site-header-inner {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 0.5rem;
   height: var(--header-height);
 }
